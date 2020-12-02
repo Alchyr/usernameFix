@@ -28,6 +28,7 @@ Choose the `BROWSE LOCAL FILES...` option in the `LOCAL FILES` tab.
 Next, copy `ModTheSpire.jar` and paste it in the folder `Steam\steamapps\common\SlayTheSpire`.
 
 ![You should see files like these.](https://i.imgur.com/HW85DlY.png)
+
 You should see files like these.
 
 In the same location, right click and create a new text document.
