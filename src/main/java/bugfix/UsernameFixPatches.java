@@ -41,7 +41,7 @@ public class UsernameFixPatches
             }
             catch (Exception e)
             {
-                location = "default";
+                location = ".temp/";
             }
             if (!(location.endsWith(File.separator) || location.endsWith("/")))
                 location += "/";
@@ -54,6 +54,42 @@ public class UsernameFixPatches
             public int[] Locate(CtBehavior ctMethodToPatch) throws Exception
             {
                 Matcher finalMatcher = new Matcher.MethodCallMatcher(SharedLibraryLoader.class, "canWrite");
+                return LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
+            }
+        }
+    }
+
+    @SpirePatch(
+            clz = SharedLibraryLoader.class,
+            method = "loadFile",
+            paramtypez = { String.class }
+    )
+    public static class ChangeGdxLocation {
+        @SpireInsertPatch(
+                locator = Locator.class,
+                localvars = { "sourceCrc", "fileName", "file" }
+        )
+        public static void change(SharedLibraryLoader __instance, String sourcePath, String sourceCrc, String fileName, @ByRef(type="java.io.File") Object[] file)
+        {
+            String location;
+            try {
+                location = config.getString("location");
+            }
+            catch (Exception e)
+            {
+                location = ".temp/";
+            }
+            if (!(location.endsWith(File.separator) || location.endsWith("/")))
+                location += "/";
+            file[0] = new File(location + sourceCrc, fileName);
+        }
+
+        private static class Locator extends SpireInsertLocator
+        {
+            @Override
+            public int[] Locate(CtBehavior ctMethodToPatch) throws Exception
+            {
+                Matcher finalMatcher = new Matcher.MethodCallMatcher(SharedLibraryLoader.class, "loadFile");
                 return LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
             }
         }
@@ -76,7 +112,7 @@ public class UsernameFixPatches
             }
             catch (Exception e)
             {
-                location = "default";
+                location = ".temp/";
             }
             if (!(location.endsWith(File.separator) || location.endsWith("/")))
                 location += "/";

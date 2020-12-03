@@ -4,8 +4,8 @@
     <groupId>usernamefix</groupId>
     <artifactId>usernamefix</artifactId>
     <name>Username Fix</name>
-    <version>0.0.0</version>
-    <description>Causes lwjgl to extract to a temporary directory unrelated to the current username, avoiding a crash resulting from invalid characters.</description>
+    <version>0.0.1</version>
+    <description>Causes gdx/lwjgl to extract to a temporary directory unrelated to the current username, avoiding a crash resulting from invalid characters.</description>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
